@@ -1,4 +1,4 @@
-package hu.ka.tagmapper;
+package hu.ka.tagmapper.map;
 
 import java.util.Map;
 import java.util.Set;

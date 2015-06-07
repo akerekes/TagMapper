@@ -1,6 +1,9 @@
-package hu.ka.tagmapper;
+package hu.ka.tagmapper.render;
 
-public class TagMappingRenderer {
+import hu.ka.tagmapper.map.TagMapping;
+
+public class SimpleTagMappingRenderer implements TagMappingRenderer {
+	@Override
 	public String render(TagMapping tagMapping) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("<html><head><title>Tags and files</title></head><body><h1>Tags</h1><p>");

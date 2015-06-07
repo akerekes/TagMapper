@@ -1,4 +1,4 @@
-package hu.ka.tagmapper;
+package hu.ka.tagmapper.map;
 
 import java.io.File;
 import java.nio.file.DirectoryStream;
@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import hu.ka.tagmapper.extract.TagExtractor;
 import hu.ka.tagmapper.util.StacktracePrinter;
 
 public class TagMapper {

@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
@@ -47,7 +48,7 @@ public class TagExtractor implements Callable<Map<String, Set<String>>> {
 	private Set<String> parseKeywords(String keywords) {
 		LOGGER.fine(keywords);
 		StringTokenizer scanner = new StringTokenizer(keywords.substring("Keywords:".length()), ";");
-		Set<String> result = new HashSet<>();
+		Set<String> result = new TreeSet<>();
 		while (scanner.hasMoreTokens()) {
 			String kw = scanner.nextToken().trim();
 			LOGGER.fine(kw);

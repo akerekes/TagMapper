@@ -10,7 +10,9 @@ public class Main {
 		if (args.length != 1) {
 			LOGGER.severe("Single command line argument is path to a file or directory to search for tags.");
 		} else {
-			new TagMapper().processPath(args[0]);
+			TagMapping tagMapping = new TagMapper().processPath(args[0]);
+			String renderedOutput = new TagMappingRenderer().render(tagMapping);
+			System.out.println(renderedOutput);
 		}
 	}
 

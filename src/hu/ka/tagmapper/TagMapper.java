@@ -11,6 +11,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
@@ -35,27 +37,28 @@ public class TagMapper {
 		}
 	}
 
-	public void processPath(String path) {
+	public TagMapping processPath(String path) {
+		Map<String, Set<String>> filesToTags = new TreeMap<>();
+		Map<String, Set<String>> tagsToFiles = new TreeMap<>();
 		try {
 			File fileOrDir = new File(path);
-			Map<String, Set<String>> filesToKws;
 			if (fileOrDir.isFile()) {
-				filesToKws = new TagExtractor(fileOrDir).call();
+				filesToTags.putAll(new TagExtractor(fileOrDir).call());
 			} else {
 				ExecutionContext executionContext = processDir(fileOrDir, new ExecutionContext<>());
-				filesToKws = collectTags(executionContext);
+				filesToTags.putAll(collectTags(executionContext));
 			}
-			LOGGER.info("Collected file->keyword mapping: " + filesToKws.toString());
-			Map<String, Set<String>> kwToFiles = new HashMap<>();
-			filesToKws.entrySet().forEach(e -> e.getValue().forEach(kw -> kwToFiles.merge(kw, new HashSet<>(Collections.singleton(e.getKey())), (a, b) ->
+			LOGGER.info("Collected file->keyword mapping: " + filesToTags.toString());
+			filesToTags.entrySet().forEach(e -> e.getValue().forEach(kw -> tagsToFiles.merge(kw, new TreeSet<>(Collections.singleton(e.getKey())), (a, b) ->
 			{
 				a.addAll(b);
 				return a;
 			})));
-			LOGGER.info("Collected keyword->file mapping: " + kwToFiles.toString());
+			LOGGER.info("Collected keyword->file mapping: " + tagsToFiles.toString());
 		} catch (Exception e) {
 			LOGGER.severe(new StacktracePrinter(e));
 		}
+		return new TagMapping(filesToTags, tagsToFiles);
 	}
 
 	private Map<String, Set<String>> collectTags(ExecutionContext<Map<String, Set<String>>> executionContext) {

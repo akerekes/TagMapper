@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Tags and files</title>
+  </head>
+  <body>
+
+    <h1>Tags</h1>
+    <p>${foreach tagsToFiles entry}${foreach entry.value file}
+      <b>${entry.key}</b> -> <a href="file://///${file}">${file}</a>${end}${end}
+    </p>
+
+    <h1>Files</h1>
+    <p>${foreach filesToTags entry}${foreach entry.value tag}
+      <b>${entry.key}</b> -> <a href="#${tag}">${tag}</a>${end}${end}
+    </p>
+
+  </body>
+</html>

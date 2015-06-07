@@ -5,14 +5,31 @@
   <body>
 
     <h1>Tags</h1>
-    <p>${foreach tagsToFiles entry}${foreach entry.value file}
-      <b>${entry.key}</b> -> <a href="file://///${file}">${file}</a>${end}${end}
-    </p>
+    <div id="tag-list">
+    <input class="search" />
+    <ul class="list">${foreach tagsToFiles entry}
+      <a id="${entry.key}" ></a>${foreach entry.value file}
+      <li>
+        <span class="tag">${entry.key}</span> -> <a class="file" href="file://///${file}">${file}</a>
+      </li>${end}${end}
+    </ul>
 
     <h1>Files</h1>
-    <p>${foreach filesToTags entry}${foreach entry.value tag}
-      <b>${entry.key}</b> -> <a href="#${tag}">${tag}</a>${end}${end}
-    </p>
+    <div id="file-list">
+    <input class="search" />
+    <ul class="list">${foreach filesToTags entry}${foreach entry.value tag}
+      <li>
+        <span class="file">${entry.key}</span> -> <a class="tag" href="#${tag}">${tag}</a>
+      </li>${end}${end}
+    </ul>
 
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+  <script>
+    var options = {
+      valueNames: [ 'tag', 'file' ]
+    };
+    var tagList = new List('tag-list', options);
+    var fileList = new List('file-list', options);
+  </script>
   </body>
 </html>

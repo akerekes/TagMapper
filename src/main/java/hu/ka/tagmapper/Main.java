@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import hu.ka.tagmapper.map.TagMapper;
 import hu.ka.tagmapper.map.TagMapping;
-import hu.ka.tagmapper.render.SimpleTagMappingRenderer;
 import hu.ka.tagmapper.render.TemplateTagMappingRenderer;
 
 public class Main {
